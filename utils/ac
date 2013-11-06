@@ -1,0 +1,8 @@
+#!/bin/sh
+
+export SHELL=$PLAN9/bin/rc
+export TERM=dumb
+
+pgrep plumber || $PLAN9/bin/plumber
+
+exec $PLAN9/bin/acme -a -l $HOME/acme.dump -f $HOME/plan9/fonts/anonpro/anonpro.11.font -m $HOME/mnt/acme
