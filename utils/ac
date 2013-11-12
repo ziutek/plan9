@@ -2,6 +2,7 @@
 
 export SHELL=$PLAN9/bin/rc
 export TERM=dumb
+export mousescrollsize=4
 
 pgrep plumber || $PLAN9/bin/plumber
 
