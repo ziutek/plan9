@@ -1,0 +1,22 @@
+# to update: cat $HOME/lib/plumbing | 9p write plumb/rules
+
+editor = acme
+
+# images files go to geeqie
+type is text
+data matches '[a-zA-Z¡-￿0-9_\-./]+'
+data matches '([a-zA-Z¡-￿0-9_\-./]+)\.(jpe?g|JPE?G|gif|GIF|ppm|bit|png|PNG)'
+arg isfile	$0
+plumb to image
+plumb start geeqie $file
+
+# tiff, pdf to evince
+type is text
+data matches '[a-zA-Z¡-￿0-9_\-./]+'
+data matches '([a-zA-Z¡-￿0-9_\-./]+)\.(tif?f|TIF?F|pdf|PDF|ps|PS|dvi|DVI)'
+arg isfile	$0
+plumb to postscript
+plumb start evince $file
+
+include basic
+
