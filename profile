@@ -18,3 +18,5 @@ export PAGER=nobs
 export font=$HOME/plan9/fonts/anonpro/anonpro.11.font
 
 export PATH=$PATH:$PLAN9/bin
+
+start-p9p.sh
