@@ -14,9 +14,13 @@ unset FCEDIT VISUAL
 # Get rid of backspace characters in Unix man output.
 export PAGER=nobs
 
-
 export font=$HOME/plan9/fonts/anonpro/anonpro.11.font
 
 export PATH=$PATH:$PLAN9/bin
 
-start-p9p.sh
+pgrep factotum || {
+	export DISPLAY=:0
+	factotum
+	aescbc -d < $HOME/lib/fact.keys |while read key; do echo $key |9p write factotum/ctl; done
+	unset DISPLAY
+}
