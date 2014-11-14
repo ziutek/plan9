@@ -1,6 +1,6 @@
 export PLAN9=/usr/local/plan9
 
-export BROWSER=x-www-browser
+export BROWSER=firefox
 
 # Variables for rc(1).
 export home=$HOME
