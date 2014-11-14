@@ -1,0 +1,13 @@
+#!/bin/sh
+
+exec sed -r "s/^From: .*$/From: $from/g" |msmtp \
+	--host=$host \
+	--auth=on \
+	--tls=on \
+	--tls-certcheck=off \
+	--user=$user \
+	--passwordeval='9passwd role=client service=imap server=$host user=$user' \
+	--from=$user \
+	--read-recipients \
+	--domain=$(hostname)
+
