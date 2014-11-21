@@ -1,6 +1,6 @@
 #!/bin/sh
 
-exec sed "s/^From: .*$/From: $from/g" |msmtp \
+exec /bin/sed "0,/^From: /{s/^From: .*/From: $from/}" |msmtp \
 	--host=$host \
 	--auth=on \
 	--tls=on \
