@@ -21,6 +21,9 @@ export PATH=$PATH:$PLAN9/bin
 pgrep factotum || {
 	export DISPLAY=:0
 	factotum
-	aescbc -d < $HOME/lib/fact.keys |while read key; do echo $key |9p write factotum/ctl; done
+	until keys=$(aescbc -d < $HOME/lib/fact.keys); do
+		:
+	done
+	echo "$keys" |while read key; do echo $key |9p write factotum/ctl; done
 	unset DISPLAY
 }
