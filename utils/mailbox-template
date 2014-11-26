@@ -1,0 +1,5 @@
+#!/bin/sh
+export host=<IMAP server address>
+export user=<username for this mailbox>
+export from="=?utf-8?q?<Your UTF8 encoded name>?= <$user>"
+9 Mail -n $user $@
