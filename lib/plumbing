@@ -4,19 +4,26 @@ editor = ac
 
 # images files go to geeqie
 type is text
-data matches '[a-zA-Z¡-￿0-9_\-./]+'
-data matches '([a-zA-Z¡-￿0-9_\-./]+)\.(jpe?g|JPE?G|gif|GIF|ppm|bit|png|PNG)'
+data matches '[a-zA-Z¡-￿0-9_+\-./]+'
+data matches '([a-zA-Z¡-￿0-9_+\-./]+)\.(jpe?g|JPE?G|gif|GIF|ppm|bit|png|PNG)'
 arg isfile	$0
 plumb to image
 plumb start geeqie $file
 
 # tiff, pdf to evince
 type is text
-data matches '[a-zA-Z¡-￿0-9_\-./]+'
-data matches '([a-zA-Z¡-￿0-9_\-./]+)\.(tif?f|TIF?F|pdf|PDF|ps|PS|dvi|DVI)'
+data matches '[a-zA-Z¡-￿0-9_+\-./]+'
+data matches '([a-zA-Z¡-￿0-9_+\-./]+)\.(tif?f|TIF?F|pdf|PDF|ps|PS|dvi|DVI)'
 arg isfile	$0
 plumb to postscript
 plumb start evince $file
+
+# xls, doc, ...
+data matches '[a-zA-Z¡-￿0-9_+\-./]+'
+data matches '([a-zA-Z¡-￿0-9_+\-./]+)\.([Dd][Oo][Cc]|[Dd][Oo][Cc][Xx]|[Xx][Ll][Ss]|[Pp][Pp][Tt])'
+arg isfile	$0
+plumb to libreoffice
+plumb start libreoffice $file
 
 include basic
 
