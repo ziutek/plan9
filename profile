@@ -15,7 +15,7 @@ export font=$HOME/plan9/fonts/anonpro/anonpro.11.font
 
 export PATH=$PATH:$PLAN9/bin
 
-pgrep factotum && [ -e $HOME/lib/fact.keys ] || {
+pgrep factotum || [ ! -r $HOME/lib/fact.keys ] || {
 	factotum
 	until aescbc -d < $HOME/lib/fact.keys; do
 		echo "Wrong password for $HOME/lib/fact.keys" >/dev/stderr
@@ -23,3 +23,9 @@ pgrep factotum && [ -e $HOME/lib/fact.keys ] || {
 		echo $key |9p write factotum/ctl
 	done
 }
+
+pgrep plumber || plumber
+
+pgrep mailfs || 9p read factotum/ctl |grep 'service=imap' |sed -r 's/.*server=([[:alnum:].-]+).*user=([[:alnum:].@_-]+).*/\1 \2/g' |while read server email; do
+	mailfs -t -s $email -u $email $server
+done
