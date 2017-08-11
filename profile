@@ -1,6 +1,6 @@
 export PLAN9=/usr/local/plan9
 
-export BROWSER=firefox
+export BROWSER=x-www-browser
 
 # Variables for rc(1).
 export home=$HOME
@@ -11,19 +11,15 @@ export user=$USER
 export EDITOR=E
 unset FCEDIT VISUAL
 
-# Get rid of backspace characters in Unix man output.
-export PAGER=nobs
-
 export font=$HOME/plan9/fonts/anonpro/anonpro.11.font
 
 export PATH=$PATH:$PLAN9/bin
 
-pgrep factotum || {
-	export DISPLAY=:0
+pgrep factotum && [ -e $HOME/lib/fact.keys ] || {
 	factotum
-	until keys=$(aescbc -d < $HOME/lib/fact.keys); do
-		:
+	until aescbc -d < $HOME/lib/fact.keys; do
+		echo "Wrong password for $HOME/lib/fact.keys" >/dev/stderr
+	done |while read key; do
+		echo $key |9p write factotum/ctl
 	done
-	echo "$keys" |while read key; do echo $key |9p write factotum/ctl; done
-	unset DISPLAY
 }
